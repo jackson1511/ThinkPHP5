@@ -10,11 +10,6 @@ class Index
         return 'Home';
     }
 
-    public function hello($name = 'ThinkPHP5')
-    {
-        return 'hello,' . $name;
-    }
-
     public function testConnection()
     {
         try {
