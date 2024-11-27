@@ -12,9 +12,9 @@
 Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
+Route::get('/test-connection','index/testConnection');
 
-Route::get('hello/:name', 'index/hello');
 
-return [
-
-];
+/** User Route */
+Route::get('/users', 'user/index');
+Route::get('/users/create', 'user/store');
