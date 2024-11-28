@@ -17,10 +17,6 @@ Route::get('/test-connection','index/testConnection');
 
 /** User Route */
 
-use think\facade\Route;
-
-
-
 // RESTful routes
 Route::get('users/active', 'user/active');            // Get active users
 
@@ -33,6 +29,9 @@ Route::delete('users/:id', 'user/delete')->pattern(['id' => '\d+']); // Delete a
 // Special actions
 Route::patch('users/:id/disable', 'user/disable')->pattern(['id' => '\d+']); // Disable a user
 Route::patch('users/:id/enable', 'user/enable')->pattern(['id' => '\d+']); // Disable a user
+
+/** View */
+Route::get('/dashboard','dashboard/index');
 
 
 

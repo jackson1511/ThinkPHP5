@@ -12,8 +12,13 @@ class User
     {
         // Fetch all users
         $users = Db::name('user')->select();  // Retrieves all records
+        
+        // Return the data as JSON
+        // return json($users); 
 
-        return json($users);  // Return the data as JSON
+        $username = 'sohcoeun';
+
+        return view('user/index', compact('username', 'users'));
     }
 
     // Read a user by ID

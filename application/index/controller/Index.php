@@ -7,7 +7,7 @@ class Index
 {
     public function index()
     {
-        return 'Home';
+        return view('home/index');
     }
 
     public function testConnection()
