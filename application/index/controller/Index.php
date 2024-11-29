@@ -7,6 +7,7 @@ class Index
 {
     public function index()
     {
+
         return view('home/index');
     }
 

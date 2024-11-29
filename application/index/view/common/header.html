@@ -1,0 +1,25 @@
+<!-- Header with Navbar -->
+<header class="bg-dark text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container display-flex">
+      <!-- Brand or Logo -->
+      <a class="navbar-brand" href="#">Creator</a>
+
+      <!-- Other navigation items -->
+      <div>
+        <ul class="navbar-nav">
+          <li class="px-2">
+            <!-- Index : controller , index : action -->
+            <a href="{:url('Index/index')}">Home</a>
+          </li>
+          <li class="px-2">
+            <a href="{:url('Dashboard/index')}">Dashboard</a>
+          </li>
+          <li class="px-2">
+            <a href="{:url('User/index')}">User</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

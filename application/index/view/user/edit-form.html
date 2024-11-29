@@ -1,27 +1,34 @@
-<div>
-  <h2>Update User</h2>
+<div class="container-fluid w-50 mt-5 border p-4 rounded">
+  <h2 class="mb-4">Update User</h2>
   <form action="{:url('user/update', ['id' => $user['id']])}" method="post">
-    <input type="text" name="id" value="{$user['id']}" hidden />
-    <div>
-      <label for="name">Fist Name:</label>
-      <input type="text" name="first_name" value="{$user['first_name']}" />
+    <input type="hidden" name="id" value="{$user['id']}">
+
+    <!-- First Name -->
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name:</label>
+      <input type="text" name="first_name" class="form-control" id="firstName" value="{$user['first_name']}" required>
     </div>
-    <div>
-      <label for="name">Last Name:</label>
-      <input type="text" name="last_name" value="{$user['last_name']}" />
+
+    <!-- Last Name -->
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name:</label>
+      <input type="text" name="last_name" class="form-control" id="lastName" value="{$user['last_name']}" required>
     </div>
-    <div>
-      <!-- select : Male orFemale or Other -->
-      <label for="gender">Gender:</label>
-      <select name="gender" default="{$user['gender']}">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
+
+    <!-- Gender Selection -->
+    <div class="mb-3">
+      <label for="gender" class="form-label">Gender:</label>
+      <select name="gender" class="form-select" id="gender" required>
+        <option value="Male" {$user['gender'] == 'Male' ? 'selected' : ''}>Male</option>
+        <option value="Female" {$user['gender'] == 'Female' ? 'selected' : ''}>Female</option>
+        <option value="Other" {$user['gender'] == 'Other' ? 'selected' : ''}>Other</option>
       </select>
     </div>
-    <button type="submit">Update</button>
-    <button>
-      <a href="{:url('user/index')}">Cancel</a>
-    </button>
+
+    <!-- Submit and Cancel Buttons -->
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">Update</button>
+      <a href="{:url('user/index')}" class="btn btn-secondary">Cancel</a>
+    </div>
   </form>
 </div>
