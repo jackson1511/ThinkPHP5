@@ -1,0 +1,26 @@
+<div>
+  <h2>New User</h2>
+  <form action="{:url('user/store')}" method="post">
+    <div>
+      <label for="name">Fist Name:</label>
+      <input type="text" name="first_name" required />
+    </div>
+    <div>
+      <label for="name">Last Name:</label>
+      <input type="text" name="last_name" required />
+    </div>
+    <div>
+      <!-- select : Male orFemale or Other -->
+      <label for="gender">Gender:</label>
+      <select name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <button type="submit">Create</button>
+    <button>
+      <a href="{:url('user/index')}">Cancel</a>
+    </button>
+  </form>
+</div>

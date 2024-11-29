@@ -3,25 +3,22 @@
 namespace app\index\controller;
 
 use think\Db;
+use think\Request;
+use think\facade\Validate;
+use think\Controller;
 
 
-class User
+class User extends Controller
 {
-    // Read users from the 'user' table
+    /** List all users */
     public function index()
     {
-        // Fetch all users
-        $users = Db::name('user')->select();  // Retrieves all records
-        
-        // Return the data as JSON
-        // return json($users); 
-
-        $username = 'sohcoeun';
-
-        return view('user/index', compact('username', 'users'));
+        $users = Db::name('user')->select();
+                
+        return view('user/index', compact('users'));
     }
 
-    // Read a user by ID
+    /** Find a user */
     public function show($id)
     {
         $user = Db::name('user')->where('id', $id)->find();
@@ -33,21 +30,21 @@ class User
         return json($user);        
     }
 
-    // Read all users active
+    /** List active users */
     public function active()
     {
         $users = Db::name('user')->where('status', 1)->select();
         return json($users);
     }
 
-    // disable user
+    /** Disable a user */
     public function disable($id)
     {
         $result = Db::name('user')->where('id', $id)->update(['status' => 0]);
         return json($result ? ['message' => 'User disabled successfully'] : ['message' => 'User not found']);
     }
 
-    // enable user
+    /**  Enable a user */
     public function enable($id)
     {
         $result = Db::name('user')->where('id', $id)->update(['status' => 1]);
@@ -55,49 +52,59 @@ class User
     }
 
 
-
-    // Create a new user (insert)
-    public function store()
+    /** Show create user form */
+    public function create()
     {
-        // Data to insert
-        $data = [
-            'first_name' => 'John',
-            'last_name'  => 'Doe',
-            'gender'     => 'Male',
-            'status'     => 1  // Active
-        ];
+        return view('user/create-form');
+    }
 
-        // Insert data into the 'user' table
+    /** Save new user */
+    public function store(Request $request)
+    {
+        $data = $request->post();
+
         $result = Db::name('user')->insert($data);
 
-        // Check if insert was successful
         if ($result) {
-            return json(['message' => 'User created successfully']);
+            return redirect('user/index');
         } else {
-            return json(['message' => 'Failed to create user']);
+            return $this->error('An error occurred while saving the user. Please try again later.');
         }
     }
 
-    // Update user information
-    public function update($id)
+    /** Show edit user form */
+    public function edit($id)
     {
-        // Data to update
-        $data = [
-            'first_name' => 'Jane Update',
-            'last_name'  => 'Smith',
-            'gender'     => 'Female',
-        ];
+        $user = Db::name('user')->where('id', $id)->find();
+
+        if (!$user) {
+            return $this->error('User not found!');
+        }
+
+        return view('user/edit-form', compact('user'));
+    }
+
+    /** Update user */
+    public function update($id, Request $request)
+    {
+        $data = $request->post();
 
         $result = Db::name('user')->where('id', $id)->update($data);
 
-        return json($result ? ['message' => 'User updated successfully'] : ['message' => 'User not found or no change']);
+        if ($result === false) {
+            return $this->error('An error occurred while updating the user. Please try again later.', 'user/index', 5); // Redirect after 5 seconds
+        }
+        
+        return redirect('user/index');
     }
 
-    // Delete a user
+    /** Delete user */
     public function delete($id)
     {
         $result = Db::name('user')->where('id', $id)->delete();
-        return json($result ? ['message' => 'User deleted successfully'] : ['message' => 'User not found']);
+
+        // $result : 1 (success) or 0 (fail)
+        return $this->error($result ? 'User deleted successfully!' : 'Failed to delete user.', 'user/index', 5);
     }
     
 }

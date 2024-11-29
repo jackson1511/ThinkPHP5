@@ -22,8 +22,14 @@ Route::get('users/active', 'user/active');            // Get active users
 
 Route::get('users/:id', 'user/show')->pattern(['id' => '\d+']); // Show a specific user
 Route::get('users', 'user/index');                     // List all users
-Route::post('users', 'user/store');                   // Create a new user
-Route::put('users/:id', 'user/update')->pattern(['id' => '\d+']); // Update a user
+
+/** CREATE USER */
+Route::get('user/create', 'user/create');                     // List all users
+Route::post('users/store', 'user/store');    
+
+Route::get('user/edit:id', 'user/edit');                 
+Route::post('user/update/:id', 'user/update')->pattern(['id' => '\d+']); // Update a user
+
 Route::delete('users/:id', 'user/delete')->pattern(['id' => '\d+']); // Delete a user
 
 // Special actions
